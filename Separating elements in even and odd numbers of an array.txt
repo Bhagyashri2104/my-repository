@@ -1,0 +1,28 @@
+#include <stdio.h>
+int main()
+{
+   
+  int a[5];
+  int evencount=0,oddcount=0;
+  
+  printf("Enter the elements of an arrray :\n");
+  
+  for(int i=0;i<5;i++)
+  { 
+      scanf("%d",&a[i]);
+      
+  }
+  
+  for(int i=0;i<5;i++)
+  { if(a[i]%2==0)
+  { printf("Even number is :%d\n",a[i]);
+    evencount++;
+  }
+   else
+   { printf("Odd number is  :%d\n",a[i]);
+     oddcount++;
+   }
+  
+  }
+    return 0;
+}
