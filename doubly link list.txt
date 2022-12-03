@@ -1,0 +1,205 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct abc
+{
+  char name[20];
+  int PR;
+  struct abc *prv;
+  struct abc *next;
+   
+};
+
+   void inserts(struct abc*); //Function Declaration
+   void insertm(struct abc*);
+  // void deletep(struct abc*);
+   void deletem(struct abc*);
+   struct abc *deletep(struct abc *head);
+   void deletes(struct abc*);
+   void count(struct abc*);
+   void reverse(struct abc*);
+   void display(struct abc*);
+ 
+void main()
+ {
+     int ch,y;
+     struct abc*head;
+     head=(struct abc*)malloc(sizeof(struct abc));
+     printf("Enter the Name and PRN of President :\n");
+     scanf("%s", head->name);
+     scanf("%d",&head->PR);
+     
+     head->next=NULL;
+     head->prv=NULL;
+     inserts(head);    //function Calling
+     struct abc *temp;
+     temp=head;
+   do{
+         printf("Enter choice");
+         printf("\n1.Insert member");
+         printf("\n2.Delete Secretary");
+         printf("\n3.Delete member");
+         printf("\n4.Count no. of nodes");
+         printf("\n5.Reverse the Link");
+         printf("\n6.Display");
+         printf("\n7.Exit");
+         scanf("%d",&ch);
+         
+         switch(ch)
+         {
+             case 1: 
+                    insertm(head);
+                    break;
+                    
+             case 2:
+                    deletes(head);
+                    break;
+                    
+             case 3:
+                    deletem(head);
+                    break;
+                    
+             case 4:
+                    count(head);
+                    break;
+             case 5:
+             while(temp->next!=NULL)
+            {
+              temp=temp->next;
+             }
+              reverse(temp);
+                    
+                    break;
+                
+             case 6 :
+                     display(head);
+                     break;
+                     
+              case 7: 
+                    exit;
+              default:
+                    printf("wrong choice\n");
+         }
+          printf("\nDo you want to Continue\n:");
+          scanf("%d",&y);
+          
+         
+     }while(y==1);
+      
+      
+ }
+ 
+ void inserts(struct abc*head)
+ {
+     struct abc*new;             //LAST NODE
+     new=(struct abc*)malloc(sizeof(struct abc));
+     printf("Enter the Name and PRN of secretary:\n ");
+     scanf("%s",new->name);
+     scanf("%d",&new->PR);
+     
+     new->next=NULL;
+     new->prv=NULL;
+     
+     head->next=new;
+     new->prv=head;
+ }
+ 
+ void insertm(struct abc*head)
+  {
+
+    struct abc*new,*temp;
+    new=(struct abc*)malloc(sizeof(struct abc));
+    printf("Enter the Name and PRN of secretary:\n");
+    scanf("%s",new->name);
+    scanf("%d",&new->PR);
+    temp=head->next;  //last node as temp
+      
+    new->next=NULL;
+    new->prv=NULL;
+    new->next=head->next;
+     new->prv=head;
+    head->next=new;
+    new->prv=head;
+    new->next=temp;
+    temp->prv=new;
+     
+     
+  }
+ 
+
+  struct abc* deletep(struct abc *head)
+   {
+    struct abc *temp;
+    temp=head;
+    head=head->next;
+    head->prv=NULL;
+    free(temp);
+     return head;
+   }
+
+
+ void deletes(struct abc *head)
+  {
+    struct abc *temp,*prv;
+    while(temp->next!=NULL)
+    {
+        temp->prv=temp;
+        temp=temp->next;
+    }
+    
+  temp->prv->next=NULL;
+  free(temp);
+  }
+ 
+  void deletem(struct abc*head)
+  {
+      struct abc * temp;
+      temp=head->next;
+      head->next=temp->next;
+      temp->next->prv=head;
+      free(temp);
+  }
+ 
+ void count(struct abc *head)
+ {
+     int i=0;
+     struct abc *temp;
+     temp=head;
+     while(temp!=NULL)
+     {
+         i++;
+         temp=temp->next;
+     }
+     printf("count is %d",i);
+         
+ }
+ 
+ 
+
+ 
+    void display(struct abc *head)
+   {
+     struct abc *temp=head;
+      while(temp!=NULL)
+      {
+           printf("\n Name:%s\t PR:%d", temp->name,temp->PR);
+          temp=temp->next;
+      }
+    
+   }
+    
+     
+ void reverse(struct abc *temp)
+ {
+     if(temp!=NULL)
+     {
+         printf("\n%s %d",temp->name,temp->PR);
+         temp=temp->prv;
+         reverse(temp);
+     }
+     
+ }
+    
+
